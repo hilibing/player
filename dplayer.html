@@ -1,0 +1,64 @@
+
+<!DOCTYPE>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>use dplayer</title>
+    <link rel="stylesheet" href="dplayer/DPlayer.min.css">
+    <script src="dplayer/DPlayer.min.js"></script>
+    <script src="dplayer/hls.min.js"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+function alertMsg()
+  {
+	var result = document.getElementById("input").value;
+    location.href="?m3u8="+result;
+  }
+
+</script>
+
+<div>
+    <hr>
+    <h3>标题</h3>
+	请输入播放地址:<input id="input" type="text">
+	<br>
+	<input type="button" id="btn" value="btn" onclick="alertMsg()"/>
+    <div id="dplayer" class="dplayer"></div>
+    <script type="text/javascript">
+		var m3u8="";
+		//获取路径中传参值
+		function getRequestParam(param){
+			var requestString = location.search;
+			var reg = new RegExp("(?:\\?|&)" + param + "=(.*?)(?:&|$)");
+			if (reg.test(requestString)) {
+				return decodeURIComponent(RegExp.$1);
+			} else {
+				return '';
+			}
+		};
+		//alert(getRequestParam('m3u8'));
+		var video_url =getRequestParam('m3u8');
+		alert(video_url);
+        var dp = new DPlayer({
+            element: document.getElementById('dplayer'), // 可选，player元素
+            autoplay: false, // 可选，自动播放视频，不支持移动浏览器
+            theme: '#FADFA3', // 可选，主题颜色，默认: #b7daff
+            loop: true, // 可选，循环播放音乐，默认：true
+            lang: 'zh', // 可选，语言，`zh'用于中文，`en'用于英语，默认：Navigator  language
+            screenshot: true, // 可选，启用截图功能，默认值：false，注意：如果设置为 true，视频和视频截图必须启用跨域
+            hotkey: true, // 可选，绑定热键，包括左右键和空格，默认值：true
+            preload: 'auto', // 可选，预加载的方式可以是'none''metadata''auto'，默认 值：'auto'
+            video: { // 必需，视频信息
+                url: video_url, // 必填，视频网址
+                pic: null				// 可选，视频截图
+            }
+            
+        });
+    </script>
+    <hr>
+    </div>
+
+
+</body></html>
